@@ -3,10 +3,12 @@ import csv
 import sys
 
 class Product:
+    # Initializing attributes of the class:
     def __init__(self, name, price):
         self.name = name
         self.price = price
     
+    # repr method returns a string format of an object in Python:
     def __repr__(self):
         return f'NAME: {self.name} PRICE: {self.price}'
 
@@ -29,10 +31,13 @@ class ProductStock:
 class Customer:
     def __init__(self, path):
         self.shopping_list = []
+        # Reading data from a csv file:
         with open(path) as csv_file:
             csv_reader = csv.reader(csv_file, delimiter=',')
+            # Python 'next' method reads the next line/row in a file each time it's called:
             first_row = next(csv_reader)
             sec_row = next(csv_reader)
+            # Extracting the first element from the row, which is element '0':
             self.name = sec_row[0]
             self.budget = float(sec_row[1])
             for row in csv_reader:
@@ -49,7 +54,9 @@ class Customer:
             lines = list(csv_reader2)
             for line in lines:
                 line[1] == float(line[1]) - float(amount)
+                # 'csv.writer()' converts data into a delimited string:
                 writer = csv.writer(open(path, "w", newline = ''))
+                # 'writerows()' writes all the data of 'lines' object into a file:
                 writer.writerows(lines)
     
     def updating(self):
@@ -142,8 +149,7 @@ class Shop:
                 if item == row[1]:
                     return row[1]
 
-    def add_money(self, amount):
-        # Works at last ! 
+    def add_money(self, amount): 
         r = csv.reader(open("shop1.csv")) 
         lines = list(r)
         lines[0][0] = self.cash + amount
